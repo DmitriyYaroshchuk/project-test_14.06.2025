@@ -1,12 +1,14 @@
-import {Box, Typography} from "@mui/material";
+import {Box} from "@mui/material";
+import AboutBooking from "../components/AboutBooking/AboutBooking.jsx";
+import Offices from "../components/Offices/Offices.jsx";
+import Offers from "../components/Offers/Offers.jsx";
 
 function About() {
     return (
-        <Box component="div">
-            <Typography component="h5" variant="h5">About</Typography>
-            <Typography component="p" variant="p">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias dicta dolore excepturi magni molestiae neque non perspiciatis ullam? Autem explicabo laboriosam molestiae natus odit perspiciatis reiciendis repellendus tenetur totam vitae?
-            </Typography>
+        <Box component="main">
+           <AboutBooking/>
+            <Offices/>
+            <Offers/>
         </Box>
     )
 }

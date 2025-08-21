@@ -2,12 +2,20 @@ import {FormControl, FormHelperText, InputLabel, MenuItem, Select} from "@mui/ma
 import {Controller} from "react-hook-form";
 import {red} from "@mui/material/colors";
 import PropTypes from "prop-types";
+import {useSelector} from "react-redux";
 
 function SelectField(props) {
+    const destinations = useSelector(state => state.destinations.items);
     const { control, error, name, id } = props;
     return (
-        <FormControl sx={{width:'100%'}}>
-            <InputLabel id={id} sx={{ color: '#fff' }}>{name}</InputLabel>
+        <FormControl sx={{
+            width:'100%',
+            '& .MuiFormHelperText-root': {
+                color: 'red',
+                fontWeight: 'bold',
+            }
+        }}>
+            <InputLabel id={id} sx={{ color: '#605f5f' }}>{name}</InputLabel>
             <Controller
                 control={control}
                 rules={{ required: 'Field is required' }}
@@ -15,19 +23,22 @@ function SelectField(props) {
                 render={({ field }) => (
                     <Select
                         {...field}
+                        sx={{ backgroundColor: 'rgba(255,255,255,0.5)', borderRadius: '4px'
+                        }}
                         value={field.value ?? ''}
                         labelId={id}
                         label={name}
-                        sx={{ color: '#fff' }}
                         error={!!error}
                     >
-                        <MenuItem value=""><em>Test</em></MenuItem>
-                        <MenuItem value="test2">Test2</MenuItem>
-                        <MenuItem value="test3">Test3</MenuItem>
+                        {
+                            destinations.map((item) => (
+                                <MenuItem key={item.id} value={item.value}>{item.label}</MenuItem>
+                            ))
+                        }
                     </Select>
                 )}
             />
-            { error && <FormHelperText sx={{ color: red }}>{error}</FormHelperText> }
+            {error ? <FormHelperText>{error?.message}</FormHelperText> : null}
         </FormControl>
     )
 }

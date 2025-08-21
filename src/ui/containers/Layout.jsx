@@ -1,7 +1,8 @@
-import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {Outlet} from "react-router-dom";
 import { green, indigo} from "@mui/material/colors";
-import Header from "../components/Header/Header.jsx";
+import Header from "./../components/Header/Header.jsx";
+import Footer from "./../components/Footer/Footer.jsx";
 const theme = createTheme({
     palette: {
         primary: {
@@ -52,7 +53,7 @@ const theme = createTheme({
                     lineHeight: 1.1,
                     margin: 0,
                     padding: 0,
-                    color: '#fff',
+                    color: '#05055d',
                     textWrap: 'balance'
                 },
             },
@@ -65,9 +66,8 @@ function Layout() {
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <Header/>
-            <Container sx={{ width:"100%" }}>
-                <Outlet/>
-            </Container>
+            <Outlet/>
+            <Footer/>
         </ThemeProvider>
 
     )

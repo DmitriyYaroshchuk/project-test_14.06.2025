@@ -1,19 +1,20 @@
 import { combineReducers } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
-import { createReduxHistoryContext } from "redux-first-history";
-import { createBrowserHistory } from "history";
+import createSagaMiddleware from "redux-saga";
+import {rootSaga} from "./rootSaga.js";
+import destinationsReducer from "../core/destinations/slice.js";
+import hotelsReducer from "./../core/hotels/slice.js";
+import popupReducer from "./../core/popup/popupSlice.js";
 
-const {
-    createReduxHistory,
-    routerMiddleware,
-    routerReducer
-} = createReduxHistoryContext({ history: createBrowserHistory() });
 
+const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
     reducer: combineReducers({
-        router: routerReducer
-    }),
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(routerMiddleware),
-});
+        destinations: destinationsReducer,
+        hotels: hotelsReducer,
+        popup: popupReducer,
 
-export const history = createReduxHistory(store);
+    }),
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(sagaMiddleware)
+});
+sagaMiddleware.run(rootSaga);
